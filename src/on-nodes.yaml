@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+ name: evaluation-pipeline
+ namespace: argo
+spec:
+ serviceAccountName: argo
+ entrypoint: ex-evaluation-pipeline
+
+ arguments:
+   parameters:
+   - name: branch
+
+ templates:
+ - name: ex-evaluation-pipeline
+   steps:
+   - - name: git-pull-data-and-src
+       template: git-pull-data-and-src
+   - - name: install-env
+       template: install-env
+     - name: generate-path-list
+       template: generate-path-list
+   - - name: run-evaluation
+       template: run-evaluation
+       arguments:
+         parameters:
+         - name: path
+           value: "{{item}}"
+       withParam: "{{steps.generate-path-list.outputs.result}}"
+   - - name: aggregate-results
+       template: aggregate-results

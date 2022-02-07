@@ -1,0 +1,22 @@
+- name: run-evaluation
+   inputs:
+     parameters:
+     - name: path
+   script:
+     image: imagerepo/image:version
+     command: [bash]
+     volumeMounts:
+     - name: evaluation-data
+       mountPath: /mount
+     resources:
+       requests:
+         memory: "10Gi"
+         nvidia.com/gpu: 1
+       limits:
+         memory: "30Gi"
+         nvidia.com/gpu: 1
+     source: |
+       PIPENV_VENV_IN_PROJECT=true pipenv run python eval.py \
+         --singleevaluation \
+         --input_dir={{inputs.parameters.path}} \
+         --results_aggregation_dir=/mount/workflows/{{workflow.name}}/results
