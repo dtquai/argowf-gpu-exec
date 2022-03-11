@@ -1,3 +1,3 @@
-## Argo Workflows Evaluation Execution on GPUs
+## Argo Workflows Best Practices
 
-Allocated evaluation example on Argo Worklows.
+- Allocated evaluation execution on GPUs
