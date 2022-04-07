@@ -1,3 +1,3 @@
-## Argo Workflows Best Practices
+## Argo Workflows GPU Execution
 
-- [Allocated evaluation execution on GPUs](https://github.com/DPT4/argo-workflows-practices/tree/main/src/gpu-execution)
+Allocated evaluation execution on GPUs
